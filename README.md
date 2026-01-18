@@ -14,24 +14,59 @@ O projeto contém 3 scripts principais:
 
 - **Windows 10/11**
 - **PowerShell** (já incluído no Windows)
-- **Java** instalado e configurado no PATH do sistema
+- **Java 25** instalado e configurado no PATH do sistema (obrigatório)
 - **Conta Hytale** criada no site oficial do Hytale
 - **Execução como Administrador** (obrigatório)
+
+### ⚡ Java 25 - Requisito Obrigatório
+
+O servidor Hytale **exige especificamente o Java 25** para executar. É **essencial** que:
+
+1. ✅ O **Java 25** esteja instalado no Windows
+2. ✅ O Java esteja configurado no **PATH do sistema**
+3. ✅ O Java esteja acessível via linha de comando
+
+**Verificar instalação do Java:**
+
+Abra o PowerShell e execute:
+```powershell
+java -version
+```
+
+Você deve ver algo como:
+```
+openjdk version "25.0.1" 2025-10-21 LTS
+```
+
+Se o comando não funcionar ou mostrar uma versão diferente, você precisa:
+
+1. Baixar e instalar o **Java 25** (JDK)
+2. Adicionar o Java ao PATH do sistema Windows
+3. Reiniciar o PowerShell/Terminal
+4. Verificar novamente com `java -version`
+
+> ⚠️ **IMPORTANTE:** O servidor Hytale não funcionará com versões anteriores do Java. É obrigatório ter o Java 25 instalado e configurado.
 
 ## 🚀 Como Usar
 
 ### Passo 1: Preparação
 
-1. Abra o **PowerShell como Administrador**:
+1. **Instale o Java 25** (se ainda não tiver):
+   - Baixe o Java 25 JDK do site oficial
+   - Instale seguindo as instruções
+   - Configure no PATH do sistema Windows
+   - Verifique com: `java -version`
+
+2. Abra o **PowerShell como Administrador**:
    - Clique com o botão direito no menu Iniciar
    - Selecione "Windows PowerShell (Admin)" ou "Terminal (Admin)"
 
-2. Navegue até a pasta dos scripts:
+3. Navegue até a pasta dos scripts:
    ```powershell
-   cd pasta_do_servidor
+   cd D:\Projetos\Hytale-server\criar_server
    ```
 
-3. Se necessário, permita a execução de scripts:
+4. Se necessário, permita a execução de scripts:
    ```powershell
    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
    ```
@@ -161,7 +196,7 @@ Script auxiliar para limpar processos que possam estar bloqueando arquivos.
 Após a instalação, a estrutura será:
 
 ```
-pasta_do_servidor/
+criar_server/
 ├── downloader.zip                    # Downloader baixado automaticamente
 ├── downloader-extracted/             # Downloader extraído
 │   └── hytale-downloader-windows-amd64.exe
@@ -204,6 +239,17 @@ O processo de autenticação acontece em **duas etapas distintas**:
 
 ## ⚠️ Solução de Problemas
 
+### Erro: "Java não encontrado" ou "Java não está instalado"
+
+**Solução:**
+1. Instale o **Java 25 JDK** (obrigatório - versões anteriores não funcionam)
+2. Adicione o Java ao PATH do sistema Windows:
+   - Abra "Variáveis de Ambiente" no Windows
+   - Adicione o caminho do Java (ex: `C:\Program Files\Java\jdk-25\bin`)
+   - Reinicie o PowerShell/Terminal
+3. Verifique com: `java -version`
+4. Deve mostrar: `openjdk version "25.x.x"` ou similar
+
 ### Erro: "Access to the path ... is denied"
 
 Execute o script de limpeza:
@@ -212,12 +258,6 @@ Execute o script de limpeza:
 ```
 
 Depois tente novamente.
-
-### Erro: "Java não encontrado"
-
-1. Instale o Java JDK
-2. Adicione o Java ao PATH do sistema
-3. Verifique com: `java -version`
 
 ### Erro: "downloader.zip não encontrado"
 
@@ -228,10 +268,15 @@ O script baixa automaticamente. Se falhar:
 
 ### Servidor não inicia
 
-1. Verifique se o Java está instalado: `java -version`
+1. **Verifique se o Java 25 está instalado**: `java -version`
 2. Verifique os logs em `install-log.txt`
 3. Verifique se `HytaleServer.jar` existe em `hytale-server\Server\`
 4. Verifique se `Assets.zip` existe em `hytale-server\`
+5. Tente executar manualmente:
+   ```powershell
+   cd hytale-server
+   java -jar Server\HytaleServer.jar --assets Assets.zip
+   ```
 
 ### Autenticação não funciona
 
@@ -265,6 +310,7 @@ Em caso de problemas:
 1. Verifique o arquivo `install-log.txt` para detalhes
 2. Verifique os logs do servidor em `hytale-server\server-output.log`
 3. Execute `.\limpar-processos.ps1` se houver problemas de acesso a arquivos
+4. **Certifique-se de que o Java 25 está instalado e configurado corretamente**
 
 ## 📄 Licença
 
@@ -273,3 +319,5 @@ Este script é fornecido "como está" para facilitar a instalação do servidor 
 ---
 
 **Desenvolvido para facilitar a instalação e gerenciamento do servidor Hytale**
+
+**Requisito obrigatório: Java 25 instalado e configurado no Windows**
