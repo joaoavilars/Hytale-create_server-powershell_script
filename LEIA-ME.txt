@@ -1,0 +1,114 @@
+===========================================
+SCRIPT DE INSTALAÇÃO DO SERVIDOR HYTALE
+===========================================
+
+INSTRUÇÕES DE USO:
+------------------
+
+1. Certifique-se de que o arquivo downloader.zip está na mesma pasta deste script.
+
+2. Abra o PowerShell como Administrador (recomendado):
+   - Clique com o botão direito no menu Iniciar
+   - Selecione "Windows PowerShell (Admin)" ou "Terminal (Admin)"
+
+3. Navegue até a pasta do script:
+   cd D:\Projetos\Hytale-server\criar_server
+
+4. Execute o script:
+   .\instalar-hytale-server.ps1
+
+PARÂMETROS OPCIONAIS:
+--------------------
+
+-ServerPath <caminho>
+  Especifica o caminho onde o servidor será instalado
+  Padrão: .\hytale-server
+  Exemplo: .\instalar-hytale-server.ps1 -ServerPath "C:\HytaleServer"
+
+-DownloadPath <caminho>
+  Especifica o caminho onde os arquivos serão baixados
+  Padrão: .\hytale-server-download
+  Exemplo: .\instalar-hytale-server.ps1 -DownloadPath "C:\Downloads\Hytale"
+
+-Patchline <patchline>
+  Especifica o patchline para download (release, beta, etc.)
+  Padrão: release
+  Exemplo: .\instalar-hytale-server.ps1 -Patchline "beta"
+
+-SkipDownload
+  Pula a etapa de download (útil se já baixou os arquivos)
+  Exemplo: .\instalar-hytale-server.ps1 -SkipDownload
+
+-SkipInstall
+  Pula a etapa de instalação (não implementado ainda)
+
+EXEMPLOS DE USO:
+---------------
+
+# Instalação padrão
+.\instalar-hytale-server.ps1
+
+# Instalação em local específico
+.\instalar-hytale-server.ps1 -ServerPath "C:\MeuServidorHytale"
+
+# Instalação com patchline beta
+.\instalar-hytale-server.ps1 -Patchline "beta"
+
+# Pular download (se já baixou)
+.\instalar-hytale-server.ps1 -SkipDownload
+
+O QUE O SCRIPT FAZ:
+------------------
+
+1. Extrai o arquivo downloader.zip
+2. Localiza e executa o downloader com os argumentos corretos:
+   - -download-path: Especifica onde baixar os arquivos
+   - -patchline: Define o patchline (release, beta, etc.)
+   - -skip-update-check: Pula verificação de atualizações
+3. Baixa todos os arquivos necessários do servidor (arquivo ZIP)
+4. Extrai automaticamente o arquivo ZIP baixado
+5. Localiza o executável do servidor
+6. Verifica dependências (.NET, Java, etc.)
+7. Cria arquivos de configuração se necessário
+8. Inicia o servidor automaticamente
+
+ARQUIVOS GERADOS:
+----------------
+
+- install-log.txt: Log completo da instalação
+- server-output.log: Log de saída do servidor (na pasta do servidor)
+- serverconfig.json: Arquivo de configuração do servidor (se não existir)
+
+NOTAS IMPORTANTES:
+-----------------
+
+- O script precisa de permissões de execução no PowerShell
+- Se encontrar erro de política de execução, execute:
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+- O servidor será iniciado automaticamente após a instalação
+- Para parar o servidor, pressione Ctrl+C ou feche a janela
+
+RESOLVENDO PROBLEMAS:
+--------------------
+
+ERRO: "Access to the path ... is denied"
+  Este erro ocorre quando arquivos estão sendo usados por outro processo.
+  
+  Soluções:
+  1. Execute o script de limpeza:
+     .\limpar-processos.ps1
+  
+  2. Feche todas as janelas do PowerShell/CMD que possam estar usando os arquivos
+  
+  3. Verifique se o downloader está rodando no Gerenciador de Tarefas e encerre-o
+  
+  4. Se o problema persistir, reinicie o computador e tente novamente
+  
+  5. O script agora tenta automaticamente encerrar processos bloqueadores,
+     mas se ainda falhar, use o script de limpeza manualmente
+
+SUPORTE:
+--------
+
+Em caso de problemas, verifique o arquivo install-log.txt para mais detalhes.
